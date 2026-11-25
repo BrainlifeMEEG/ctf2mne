@@ -1,5 +1,51 @@
 # CTF to MNE Raw
 
+<!-- brainlife-app:begin (generated from the App manifest; edit the manifest, not this block) -->
+
+> **Converts MEG CTF data to MNE Raw (fif)**
+
+Copies the CTF .ds folder to a temporary location, reads it with mne.io.read_raw_ctf, detects events, marks strictly flat channels and user-listed channels as bad, sets EOG/ECG/MISC channel types, and saves raw.fif with an HTML QC report and a PSD plot. Use it as the first step to bring CTF MEG recordings into MNE-based brainlife pipelines. The eeg parameter is not read by the code.
+
+| | |
+|---|---|
+| 📥 **Inputs** | `neuro/meg/ctf` |
+| 📤 **Outputs** | `neuro/meeg/mne/raw` |
+| 🐳 **Container** | `brainlifemeeg/mne:1.12.1` |
+| ⚙️ **Resources** | 8 CPUs · 16 GB memory · 0.17 h walltime |
+| 🔗 **Run it** | [doi.org/10.25663/brainlife.app.634](https://doi.org/10.25663/brainlife.app.634) |
+
+#### 📥 Inputs
+
+| Input | Datatype | Required | Description |
+|---|---|---|---|
+| `ctf1` | `neuro/meg/ctf` | yes | CTF MEG .ds recording folder with its BIDS headshape, channels, coordsystem and events sidecars. |
+
+#### 📤 Outputs
+
+| Output | Datatype | Description |
+|---|---|---|
+| `out_dir` | `neuro/meeg/mne/raw` | MNE Raw data in FIF format |
+
+<details>
+<summary><b>⚙️ Parameters</b> (6)</summary>
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `eog` | string |  | EOG channels if any. Default is None. |
+| `ecg` | string |  | ECG channels if any. default is None. |
+| `bads` | string |  | Bad channels (comma separated list). |
+| `misc` | string |  | Names of channels or list of indices that should be designated MISC channels. Default is None. |
+| `rm_flat` | boolean | `true` | Mark flat channels as bad if True (default). |
+| `eeg` | string |  | Not read by the code (main.py handles eog, ecg, misc, bads and rm_flat only). |
+
+</details>
+
+📚 **References used by this App:**
+- Hayashi S, Caron BA, Heinsfeld AS, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. Nat Methods 21, 809-813 (2024). [doi:10.1038/s41592-024-02237-2](https://doi.org/10.1038/s41592-024-02237-2)
+- Gramfort A, et al. MEG and EEG data analysis with MNE-Python. Front Neurosci 7:267 (2013). [doi:10.3389/fnins.2013.00267](https://doi.org/10.3389/fnins.2013.00267)
+
+<!-- brainlife-app:end -->
+
 [![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.1-green.svg)](https://github.com/brain-life/abcd-spec)
 [![Run on Brainlife.io](https://img.shields.io/badge/Brainlife-bl.app.634-blue.svg)](https://doi.org/10.25663/brainlife.app.634)
 
